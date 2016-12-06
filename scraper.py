@@ -85,7 +85,7 @@ def convert_mth_strings ( mth_string ):
 #### VARIABLES 1.0
 
 entity_id = "NFTRR8_LTHNFT_gov"
-url = "http://www.leedsth.nhs.uk/about-us/trust-documents/publication-of-spend-over-pound25000"
+url = "http://www.leedsth.nhs.uk/about-us/freedom-of-information/publication-scheme/lists-and-registers/publication-of-spend-over-25000/"
 errors = 0
 data = []
 
@@ -97,7 +97,7 @@ soup = BeautifulSoup(html, 'lxml')
 
 #### SCRAPE DATA
 
-blocks = soup.find('div', id='c7647').find_all('a')
+blocks = soup.find('div', 'centre-page-content').find('ul').find_all('a')
 for block in blocks:
     years_url = ''
     try:
@@ -106,7 +106,7 @@ for block in blocks:
         pass
     years_html = urllib2.urlopen(years_url)
     years_soup = BeautifulSoup(years_html, 'lxml')
-    years_block = years_soup.find('div', id="main-content").find('div', 'csc-default').find_all('a')
+    years_block = years_soup.find('ul', 'documents').find_all('a')
     for year_block in years_block:
         if '.csv' in year_block['href'] or '.xls' in year_block['href'] or '.xlsx' in year_block['href']:
             if 'http' not in year_block['href']:
